@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "channels": [
+    {
+      "id": "human_ui",
+      "title": "Human-facing UI text",
+      "description": "Text shown directly to a human user: questions, explanations, hints in forms and interfaces.",
+      "visible_to_human": true,
+      "visible_to_model": false,
+      "allow_llm_instructions": false,
+      "status": "active"
+    },
+    {
+      "id": "model_instruction",
+      "title": "Model instruction text",
+      "description": "Text intended only for an AI model as instructions or guidance, never shown directly to the human user.",
+      "visible_to_human": false,
+      "visible_to_model": true,
+      "allow_llm_instructions": true,
+      "status": "active"
+    },
+    {
+      "id": "system_log",
+      "title": "System/log text",
+      "description": "Technical log messages and diagnostics, not used as prompts and not shown in regular UI.",
+      "visible_to_human": false,
+      "visible_to_model": false,
+      "allow_llm_instructions": false,
+      "status": "active"
+    },
+    {
+      "id": "mixed_legacy",
+      "title": "Legacy mixed text",
+      "description": "Legacy mixed channel where human-facing text and model instructions are not clearly separated. Allowed only for migration.",
+      "visible_to_human": true,
+      "visible_to_model": true,
+      "allow_llm_instructions": true,
+      "status": "deprecated"
+    }
+  ],
+  "rules": [
+    {
+      "id": "no_llm_instructions_in_meta_ext",
+      "description": "meta and ext fields in ds.* must not contain direct execution instructions for LLMs.",
+      "llm_instructions_allowed": false,
+      "field_selectors_hint": [
+        "$.meta",
+        "$.ext"
+      ]
+    },
+    {
+      "id": "human_ui_must_not_contain_llm_instructions",
+      "description": "Text in channel human_ui must not contain prompts or instructions intended for an LLM.",
+      "llm_instructions_allowed": false,
+      "channel_id": "human_ui"
+    },
+    {
+      "id": "model_instruction_not_shown_to_user",
+      "description": "Text in channel model_instruction must never be shown directly to the end user.",
+      "channel_id": "model_instruction",
+      "visible_to_human": false
+    }
+  ],
+  "meta": {
+    "note": "Core definition of text channels for MOVA 4.1: strict separation of human-facing UI text and model instructions."
+  }
+}

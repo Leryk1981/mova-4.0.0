@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.security_event_episode_core_v1.schema.json",
+  "title": "ds.security_event_episode_core_v1",
+  "description": "Core security episode schema for MOVA: records a security-relevant event with policy reference, severity, and recommended/actual actions.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_episode_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "episode_type": {
+          "type": "string",
+          "description": "Episode type must indicate a security event. Convention: security_event[/subtype].",
+          "pattern": "^security_event(/.+)?$"
+        },
+        "security_event_type": {
+          "type": "string",
+          "description": "Concrete type of security event. Base types (auth_failed, policy_violation, rate_limit_exceeded, data_access_suspected, instruction_misuse, config_change, infrastructure_issue, other) or namespaced type like vendorX:custom_event.",
+          "minLength": 1
+        },
+        "security_event_category": {
+          "type": "string",
+          "description": "High-level category for grouping security events.",
+          "enum": [
+            "auth",
+            "authorization",
+            "policy_violation",
+            "instruction_misuse",
+            "data_access",
+            "rate_limit",
+            "config",
+            "infrastructure",
+            "other"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "description": "Severity of the event from the security perspective.",
+          "enum": [
+            "info",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "policy_profile_id": {
+          "type": "string",
+          "description": "Identifier of the security policy profile that applies, e.g. mova_security_default_v1, mova_security_dev_v1."
+        },
+        "policy_ref": {
+          "type": "object",
+          "description": "Optional reference to the concrete policy document/rule that was triggered.",
+          "properties": {
+            "policy_document_id": {
+              "type": "string",
+              "description": "Identifier or URL of the policy document."
+            },
+            "rule_id": {
+              "type": "string",
+              "description": "Identifier of the concrete rule or clause inside the policy."
+            },
+            "policy_version": {
+              "type": "string",
+              "description": "Version of the policy used for this evaluation."
+            }
+          },
+          "additionalProperties": true
+        },
+        "security_model_version": {
+          "type": "string",
+          "description": "Version of the MOVA security model used when producing this episode, e.g. 1.0.0."
+        },
+        "detection_source": {
+          "type": "string",
+          "description": "Where this security event came from: human_review, rule_engine, runtime_guard, external_system, other.",
+          "enum": [
+            "human_review",
+            "rule_engine",
+            "runtime_guard",
+            "external_system",
+            "other"
+          ]
+        },
+        "detection_confidence": {
+          "type": "number",
+          "description": "Confidence in this event being correctly detected, from 0.0 to 1.0.",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "recommended_actions": {
+          "type": "array",
+          "description": "List of recommended actions in response to this security event.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_type": {
+                "type": "string",
+                "description": "Type of recommended action, e.g. alert_owner, block_request, log_only, require_human_review, adjust_policy."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Short human-readable explanation why this action is recommended."
+              },
+              "priority": {
+                "type": "string",
+                "description": "Relative priority of this action.",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              }
+            },
+            "required": [
+              "action_type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "actions_taken": {
+          "type": "array",
+          "description": "List of actions that were actually taken in response to this security event.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_type": {
+                "type": "string",
+                "description": "Type of action taken."
+              },
+              "taken_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this action was executed."
+              },
+              "actor": {
+                "type": "string",
+                "description": "Actor that executed the action (service id, user id, tool id, etc.)."
+              },
+              "status": {
+                "type": "string",
+                "description": "Result status of the action.",
+                "enum": [
+                  "completed",
+                  "failed",
+                  "skipped"
+                ]
+              },
+              "details": {
+                "type": "string",
+                "description": "Optional human-readable details about this action."
+              }
+            },
+            "required": [
+              "action_type"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "episode_id",
+        "episode_type",
+        "mova_version",
+        "recorded_at",
+        "executor",
+        "result_status",
+        "result_summary",
+        "security_event_type",
+        "security_event_category",
+        "severity",
+        "security_model_version"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

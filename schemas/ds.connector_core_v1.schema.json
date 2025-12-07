@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.connector_core_v1.schema.json",
+  "title": "ds.connector_core_v1",
+  "description": "Core neutral schema for describing a connector to an external system (API, service, data source) without vendor-locked details.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "connector_id": {
+          "type": "string",
+          "description": "Canonical id of the connector, e.g. connector_core:http_generic, connector_openai:chat."
+        },
+        "provider": {
+          "type": "string",
+          "description": "Provider name or domain, e.g. openai, google, anthrophic, internal."
+        },
+        "resource": {
+          "type": "string",
+          "description": "Target resource or service name, e.g. chat, embeddings, calendar, sheets."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Underlying protocol, e.g. http, https, grpc, custom."
+        },
+        "auth_methods": {
+          "type": "array",
+          "description": "Supported authentication methods for this connector.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Auth type.",
+                "enum": [
+                  "none",
+                  "api_key",
+                  "oauth2",
+                  "jwt",
+                  "basic",
+                  "other"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of how this auth method is used."
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "rate_limits": {
+          "type": "object",
+          "description": "Optional description of rate limiting behavior for this connector.",
+          "properties": {
+            "global_limit_hint": {
+              "type": "string",
+              "description": "Human-readable hint, e.g. 60 rpm per API key."
+            },
+            "per_user_limit_hint": {
+              "type": "string",
+              "description": "Optional per-user/per-token hint."
+            }
+          },
+          "additionalProperties": true
+        },
+        "pagination": {
+          "type": "object",
+          "description": "Optional description of pagination behavior.",
+          "properties": {
+            "style": {
+              "type": "string",
+              "description": "Pagination style, e.g. cursor, offset, token, none."
+            }
+          },
+          "additionalProperties": true
+        },
+        "error_contract": {
+          "type": "object",
+          "description": "Optional description of error shape or mapping for this connector.",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "connector_id",
+        "provider",
+        "resource",
+        "protocol"
+      ]
+    }
+  ]
+}

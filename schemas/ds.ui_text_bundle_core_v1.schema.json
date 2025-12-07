@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.ui_text_bundle_core_v1.schema.json",
+  "title": "ds.ui_text_bundle_core_v1",
+  "description": "Core schema for UI text bundles with strict separation between human-facing text and model instructions.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "bundle_id": {
+          "type": "string",
+          "description": "Identifier of this text bundle within a template or application."
+        },
+        "context_id": {
+          "type": "string",
+          "description": "Optional id of the context this bundle belongs to (e.g. envelope id, step id, screen id)."
+        },
+        "role": {
+          "type": "string",
+          "description": "Logical role of this UI text in the flow.",
+          "enum": [
+            "question",
+            "explanation",
+            "hint",
+            "error_message",
+            "success_message",
+            "section_title",
+            "other"
+          ]
+        },
+        "human_text": {
+          "type": "object",
+          "description": "Human-facing UI text that is shown directly to the user.",
+          "properties": {
+            "channel": {
+              "type": "string",
+              "const": "human_ui",
+              "description": "Channel id from global.text_channel_catalog_v1. Must be human_ui."
+            },
+            "lang": {
+              "type": "string",
+              "description": "IETF language tag for the human text, e.g. uk, de, en."
+            },
+            "text": {
+              "type": "string",
+              "description": "Text shown to the human user. Must not contain direct instructions for an LLM."
+            }
+          },
+          "required": [
+            "channel",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        "model_text": {
+          "type": "object",
+          "description": "Optional model-only instruction text that accompanies this UI element, never shown to the user.",
+          "properties": {
+            "channel": {
+              "type": "string",
+              "const": "model_instruction",
+              "description": "Channel id from global.text_channel_catalog_v1. Must be model_instruction."
+            },
+            "lang": {
+              "type": "string",
+              "description": "IETF language tag for the model text, if applicable."
+            },
+            "text": {
+              "type": "string",
+              "description": "Instruction or guidance for the model on how to interpret this UI element and related data."
+            }
+          },
+          "required": [
+            "channel",
+            "text"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bundle_id",
+        "role",
+        "human_text"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

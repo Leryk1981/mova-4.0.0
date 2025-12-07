@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova_episode_core_v1.schema.json",
+  "title": "ds.mova_episode_core_v1",
+  "description": "Core MOVA episode schema: minimal common structure for recording a meaningful step of work.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "description": "Unique identifier of this episode, e.g. UUID or composite id."
+        },
+        "episode_type": {
+          "type": "string",
+          "description": "Logical type of the episode, e.g. file_cleanup_plan_review, smartlink_routing_decision."
+        },
+        "mova_version": {
+          "type": "string",
+          "description": "MOVA language version used when recording this episode, e.g. 4.1.0."
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the episode record was created."
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional timestamp when execution of this episode started."
+        },
+        "finished_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional timestamp when execution of this episode finished."
+        },
+        "input_envelopes": {
+          "type": "array",
+          "description": "References to envelopes (env.*) that served as inputs for this episode.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "envelope_type": {
+                "type": "string",
+                "description": "Canonical envelope id, e.g. env.file_cleanup_plan_request_v1."
+              },
+              "envelope_id": {
+                "type": "string",
+                "description": "Identifier of a concrete envelope instance, if applicable."
+              }
+            },
+            "required": [
+              "envelope_type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "input_data_refs": {
+          "type": "array",
+          "description": "References to key data records (ds.*) that form the context of this episode.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "data_type": {
+                "type": "string",
+                "description": "Canonical data type id, e.g. ds.file_cleanup_snapshot_v1."
+              },
+              "data_id": {
+                "type": "string",
+                "description": "Identifier of a concrete data record."
+              }
+            },
+            "required": [
+              "data_type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "executor": {
+          "type": "object",
+          "description": "Description of who or what executed this episode.",
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Executor role, preferably from global.roles (e.g. agent, service, user)."
+            },
+            "executor_id": {
+              "type": "string",
+              "description": "Identifier of the executor (user id, service name, agent id, etc.)."
+            },
+            "executor_kind": {
+              "type": "string",
+              "description": "High-level executor kind, e.g. human, service, ai_model, tool."
+            },
+            "environment": {
+              "type": "object",
+              "description": "Technical environment and version information for this executor.",
+              "additionalProperties": true
+            }
+          },
+          "required": [
+            "executor_id"
+          ],
+          "additionalProperties": false
+        },
+        "result_status": {
+          "type": "string",
+          "description": "Status of the episode result. Should align with global.statuses.*.",
+          "enum": [
+            "pending",
+            "in_progress",
+            "completed",
+            "failed",
+            "partial",
+            "cancelled",
+            "skipped"
+          ]
+        },
+        "result_summary": {
+          "type": "string",
+          "description": "Short human-readable summary of what happened in this episode."
+        },
+        "result_details": {
+          "type": "object",
+          "description": "Optional structured details about the result: metrics, quality ratings, explanations.",
+          "additionalProperties": true
+        },
+        "output_data_refs": {
+          "type": "array",
+          "description": "References to new or changed data records (ds.*) produced by this episode.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "data_type": {
+                "type": "string",
+                "description": "Canonical data type id, e.g. ds.file_cleanup_plan_v1."
+              },
+              "data_id": {
+                "type": "string",
+                "description": "Identifier of a concrete data record."
+              }
+            },
+            "required": [
+              "data_type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "meta_episode": {
+          "type": "object",
+          "description": "Optional episode-specific metadata: correlation ids, traces, links to logs. Must not contain LLM instructions.",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "episode_id",
+        "episode_type",
+        "mova_version",
+        "recorded_at",
+        "executor",
+        "result_status",
+        "result_summary"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "input_envelopes"
+          ]
+        },
+        {
+          "required": [
+            "input_data_refs"
+          ]
+        }
+      ]
+    }
+  ]
+}

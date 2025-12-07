@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "episode_type": [
+    {
+      "id": "execution",
+      "description": "Episode that captures the execution of a scenario/skill/template (what was done and with what result).",
+      "allows_subtypes": true,
+      "examples": [
+        "execution",
+        "execution/file_cleanup",
+        "execution/smartlink_route"
+      ]
+    },
+    {
+      "id": "plan",
+      "description": "Episode that captures a plan or strategy to be executed later.",
+      "allows_subtypes": true,
+      "examples": [
+        "plan",
+        "plan/file_cleanup",
+        "plan/task"
+      ]
+    },
+    {
+      "id": "security_event",
+      "description": "Episode that captures a security-relevant event, policy evaluation or guard decision.",
+      "allows_subtypes": true,
+      "examples": [
+        "security_event",
+        "security_event/prompt_injection_suspected",
+        "security_event/policy_violation"
+      ]
+    },
+    {
+      "id": "other",
+      "description": "Other episode type not covered by the core set. Should be combined with a clear subtype.",
+      "allows_subtypes": true,
+      "examples": [
+        "other/analysis",
+        "other/custom_domain"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "episode_type_format",
+      "description": "Episode type should be either a core id (execution, plan, security_event, other) or core_id/subtype.",
+      "pattern_hint": "<core_id>[/<subtype>]",
+      "core_ids": [
+        "execution",
+        "plan",
+        "security_event",
+        "other"
+      ]
+    }
+  ],
+  "meta": {
+    "note": "Core dictionary of MOVA episode types for 4.1. Domain-specific schemas should use core ids with subtypes, e.g. execution/file_cleanup, plan/task."
+  }
+}

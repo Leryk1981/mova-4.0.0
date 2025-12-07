@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "security_event_type": [
+    {
+      "id": "instruction_profile_invalid",
+      "description": "Instruction profile is missing, invalid or incompatible with the current security model."
+    },
+    {
+      "id": "prompt_injection_suspected",
+      "description": "Input is suspected to contain prompt injection or malicious instructions."
+    },
+    {
+      "id": "forbidden_tool_requested",
+      "description": "Executor attempted to use a tool or connector that is forbidden by policy."
+    },
+    {
+      "id": "rate_limit_exceeded",
+      "description": "Rate limit was exceeded for a given executor, tool or external API."
+    },
+    {
+      "id": "sensitive_data_access_suspected",
+      "description": "Attempt to access or exfiltrate sensitive data beyond allowed scope."
+    },
+    {
+      "id": "other",
+      "description": "Other security-relevant event that does not fit predefined categories."
+    }
+  ],
+  "security_action_type": [
+    {
+      "id": "log",
+      "description": "Record the event for auditing or later analysis without immediate blocking."
+    },
+    {
+      "id": "alert",
+      "description": "Send an alert to a human owner, operator or monitoring system."
+    },
+    {
+      "id": "block",
+      "description": "Block the requested action or tool invocation."
+    },
+    {
+      "id": "fallback",
+      "description": "Switch to a safer fallback behaviour (e.g. restricted mode, safe answer, or no-op)."
+    }
+  ],
+  "security_policy_profile": [
+    {
+      "id": "mova_security_default_v1",
+      "description": "Default MOVA security profile for production-like environments.",
+      "security_model_version": "1.0.0"
+    },
+    {
+      "id": "mova_security_dev_v1",
+      "description": "Relaxed MOVA security profile for development and experimentation.",
+      "security_model_version": "1.0.0"
+    }
+  ],
+  "meta": {
+    "note": "Core security dictionaries for MOVA 4.1. Values may be extended via namespaced ids (e.g. vendorX:custom_event)."
+  }
+}

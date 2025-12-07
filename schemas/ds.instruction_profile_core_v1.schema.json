@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.instruction_profile_core_v1.schema.json",
+  "title": "ds.instruction_profile_core_v1",
+  "description": "Core schema for MOVA instruction profiles: describes how instructions and guardrails apply to executors, roles and envelopes.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Canonical id of this instruction profile, e.g. mova_security_default_v1."
+        },
+        "profile_version": {
+          "type": "string",
+          "description": "Version of this instruction profile, e.g. 1.0.0."
+        },
+        "label": {
+          "type": "string",
+          "description": "Short human-readable label for this profile."
+        },
+        "security_model_version": {
+          "type": "string",
+          "description": "Version of the MOVA security model this profile was authored for, e.g. 1.0.0."
+        },
+        "status": {
+          "type": "string",
+          "description": "Lifecycle status of this profile.",
+          "enum": [
+            "draft",
+            "active",
+            "deprecated"
+          ]
+        },
+        "applies_to": {
+          "type": "object",
+          "description": "Scope where this instruction profile should be applied.",
+          "properties": {
+            "executor_kinds": {
+              "type": "array",
+              "description": "Kinds of executors this profile targets.",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "human",
+                  "ai_model",
+                  "service",
+                  "tool",
+                  "hybrid",
+                  "other"
+                ]
+              }
+            },
+            "roles": {
+              "type": "array",
+              "description": "Executor roles this profile applies to (e.g. agent, reviewer, router).",
+              "items": {
+                "type": "string"
+              }
+            },
+            "envelope_ids": {
+              "type": "array",
+              "description": "Envelope ids (env.*) this profile applies to.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "data_types": {
+              "type": "array",
+              "description": "Data type ids (ds.*) this profile applies to.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tags": {
+              "type": "array",
+              "description": "Free-form tags for grouping and routing.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "rules": {
+          "type": "array",
+          "description": "Guardrail rules describing allowed/denied behaviours. Rules describe policy; they must not contain direct execution prompts for LLMs.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule_id": {
+                "type": "string",
+                "description": "Identifier of the rule within this profile."
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of the rule (policy statement, not an executable prompt)."
+              },
+              "effect": {
+                "type": "string",
+                "description": "Intended effect of this rule.",
+                "enum": [
+                  "allow",
+                  "deny",
+                  "warn",
+                  "log_only",
+                  "transform"
+                ]
+              },
+              "target": {
+                "type": "object",
+                "description": "What this rule applies to.",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "description": "Target kind, e.g. instruction, tool, endpoint, data_scope, conversation, code_exec, network."
+                  },
+                  "selector": {
+                    "type": "string",
+                    "description": "Selector expression used by the runtime (e.g. tag, pattern or other domain-specific reference)."
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": true
+              },
+              "severity": {
+                "type": "string",
+                "description": "Severity if this rule is violated.",
+                "enum": [
+                  "info",
+                  "low",
+                  "medium",
+                  "high",
+                  "critical"
+                ]
+              },
+              "on_violation": {
+                "type": "array",
+                "description": "Recommended actions when this rule is violated.",
+                "items": {
+                  "type": "string",
+                  "description": "Action keyword, e.g. alert_owner, block_request, require_human_review."
+                }
+              }
+            },
+            "required": [
+              "rule_id",
+              "effect"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "profile_id",
+        "security_model_version",
+        "status"
+      ]
+    }
+  ]
+}

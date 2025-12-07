@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "layers": [
+    {
+      "id": "red_core",
+      "color": "red",
+      "title": "MOVA red core",
+      "description": "Constitutional core of MOVA: schemas and envelopes that define the language itself, its security model, catalog, runtime and connector contracts. Must stay vendor-neutral and execution-free.",
+      "allowed_kinds": [
+        "ds",
+        "env",
+        "global",
+        "verbs"
+      ],
+      "namespace_prefixes": [
+        "mova",
+        "mova4",
+        "security",
+        "runtime_core",
+        "connector_core"
+      ]
+    },
+    {
+      "id": "skills",
+      "color": "yellow",
+      "title": "MOVA skills layer",
+      "description": "Skills and domain scenarios built on top of the red core. They use ds/env from the core and add domain-specific data types and episodes.",
+      "allowed_kinds": [
+        "ds",
+        "env"
+      ],
+      "namespace_prefixes": [
+        "file_cleanup",
+        "task_planning",
+        "smartlink_skill",
+        "social_skill",
+        "ecommerce_skill"
+      ]
+    },
+    {
+      "id": "infra",
+      "color": "yellow",
+      "title": "Infrastructure & vendor bindings",
+      "description": "Bindings to concrete runtimes and vendors (Cloudflare, OpenAI, Google, etc.) that implement skills using external platforms.",
+      "allowed_kinds": [
+        "ds",
+        "env",
+        "global"
+      ],
+      "namespace_prefixes": [
+        "connector",
+        "runtime",
+        "vendor"
+      ]
+    }
+  ],
+  "namespace_rules": [
+    {
+      "id": "red_core_ds",
+      "target_kind": "ds",
+      "layer_id": "red_core",
+      "pattern_hint": "ds.(mova|mova4|security|runtime_core|connector_core)_*",
+      "description": "Red core ds.* schemas use reserved domains mova, mova4, security, runtime_core, connector_core.",
+      "examples": [
+        "ds.mova_schema_core_v1",
+        "ds.mova_episode_core_v1",
+        "ds.security_event_episode_core_v1",
+        "ds.instruction_profile_core_v1",
+        "ds.runtime_binding_core_v1",
+        "ds.connector_core_v1"
+      ]
+    },
+    {
+      "id": "skills_ds",
+      "target_kind": "ds",
+      "layer_id": "skills",
+      "pattern_hint": "ds.<domain>_* where <domain> is not one of the reserved red_core domains.",
+      "description": "Skills use their own domain prefixes (file_cleanup, task_planning, social, ecommerce, etc.) and must not reuse red_core prefixes.",
+      "examples": [
+        "ds.file_cleanup_target_v1",
+        "ds.file_cleanup_plan_v1",
+        "ds.task_planning_context_v1"
+      ]
+    },
+    {
+      "id": "infra_connector_ds",
+      "target_kind": "ds",
+      "layer_id": "infra",
+      "pattern_hint": "ds.connector_<vendor>_*",
+      "description": "Vendor-specific connector descriptions live in the infra layer and follow ds.connector_<vendor>_* pattern, while their core contract shape comes from ds.connector_core_v1.",
+      "examples": [
+        "ds.connector_openai_chat_v1",
+        "ds.connector_google_sheets_v1"
+      ]
+    },
+    {
+      "id": "infra_runtime_ds",
+      "target_kind": "ds",
+      "layer_id": "infra",
+      "pattern_hint": "ds.runtime_<vendor_or_env>_*",
+      "description": "Vendor- or environment-specific runtime bindings extend the core runtime contract in the infra layer.",
+      "examples": [
+        "ds.runtime_cloudflare_worker_v1",
+        "ds.runtime_local_node_v1"
+      ]
+    }
+  ],
+  "meta": {
+    "note": "Core definition of MOVA 4.1 layers (red_core, skills, infra) and their namespace patterns. Reserved red_core prefixes must not be reused for domain skills or vendor-specific infra."
+  }
+}
