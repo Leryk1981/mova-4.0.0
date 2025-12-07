@@ -1,101 +1,104 @@
-// tools/validate_all.js
-// Simple validator for all MOVA JSON Schemas in schemas/ (draft 2020-12)
+#!/usr/bin/env node
+
+// MOVA 4.1.0 core schema validator (JSON Schema draft 2020-12)
 
 const fs = require("fs");
 const path = require("path");
-
-// Використовуємо версію Ajv з підтримкою JSON Schema 2020-12
 const Ajv2020 = require("ajv/dist/2020");
 
-// Створюємо екземпляр Ajv у режимі 2020-12
 const ajv = new Ajv2020({
+  strict: false,
   allErrors: true,
-  strict: false // щоб не отримувати зайві warning'и
+  validateFormats: false // не лаятись на "date-time" без ajv-formats
 });
 
-/**
- * Рекурсивно збираємо всі *.schema.json у каталозі.
- */
-function collectSchemaFiles(dir) {
-  const result = [];
+const SCHEMAS_DIR = path.join(__dirname, "..", "schemas");
 
-  if (!fs.existsSync(dir)) {
-    return result;
-  }
+// 1. Збираємо всі файли схем
+let files = fs
+  .readdirSync(SCHEMAS_DIR)
+  .filter((f) => f.endsWith(".json"));
 
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      result.push(...collectSchemaFiles(full));
-    } else if (entry.isFile() && entry.name.endsWith(".schema.json")) {
-      result.push(full);
-    }
-  }
-
-  return result;
+if (files.length === 0) {
+  console.error("No schema files found in 'schemas/'.");
+  process.exit(1);
 }
 
-function main() {
-  const rootDir = path.resolve(__dirname, "..");
-  const schemasDir = path.join(rootDir, "schemas");
+// Пріоритетні базові схеми (мають бути додані першими)
+const priority = [
+  "ds.mova_schema_core_v1.schema.json",
+  "ds.mova_episode_core_v1.schema.json",
+  "ds.security_event_episode_core_v1.schema.json"
+];
 
-  if (!fs.existsSync(schemasDir)) {
-    console.error("ERROR: schemas/ directory not found next to README.md");
-    process.exit(1);
+files.sort((a, b) => {
+  const ia = priority.indexOf(a);
+  const ib = priority.indexOf(b);
+  if (ia === -1 && ib === -1) return a.localeCompare(b);
+  if (ia === -1) return 1;
+  if (ib === -1) return -1;
+  return ia - ib;
+});
+
+console.log(`Found ${files.length} schema file(s).`);
+
+const schemas = new Map();
+
+// 2. Читаємо і парсимо всі схеми
+for (const file of files) {
+  const fullPath = path.join(SCHEMAS_DIR, file);
+  try {
+    const raw = fs.readFileSync(fullPath, "utf8");
+    const schema = JSON.parse(raw);
+    schemas.set(file, schema);
+  } catch (err) {
+    console.error(`FAIL  schemas\\${file}`);
+    console.error(`  cannot read or parse JSON: ${err.message}`);
+    process.exitCode = 1;
   }
+}
 
-  const schemaFiles = collectSchemaFiles(schemasDir);
-
-  if (schemaFiles.length === 0) {
-    console.warn("WARNING: no *.schema.json files found under schemas/");
-    process.exit(0);
+// 3. Спочатку реєструємо всі схеми в Ajv, щоб $ref за $id могли резолвитись
+for (const [file, schema] of schemas) {
+  try {
+    ajv.addSchema(schema);
+  } catch (err) {
+    console.error(`FAIL  schemas\\${file}`);
+    console.error(`  can't add schema: ${err.message}`);
+    process.exitCode = 1;
   }
+}
 
-  console.log(`Found ${schemaFiles.length} schema file(s).`);
-  console.log("Validating...");
+console.log("Validating...");
 
-  let hasErrors = false;
+let hasErrors = false;
 
-  for (const file of schemaFiles) {
-    const rel = path.relative(rootDir, file);
-    let schema;
-
-    try {
-      const raw = fs.readFileSync(file, "utf8");
-      schema = JSON.parse(raw);
-    } catch (err) {
+// 4. Валідатуємо кожну схему окремо
+for (const [file, schema] of schemas) {
+  try {
+    const valid = ajv.validateSchema(schema);
+    if (valid) {
+      console.log(`OK    schemas\\${file}`);
+    } else {
       hasErrors = true;
-      console.error(`FAIL  ${rel}`);
-      console.error("  JSON parse error:", err.message);
-      continue;
-    }
-
-    try {
-      ajv.compile(schema);
-      console.log(`OK    ${rel}`);
-    } catch (err) {
-      hasErrors = true;
-      console.error(`FAIL  ${rel}`);
-      if (err.errors && Array.isArray(err.errors)) {
-        const text = ajv.errorsText(err.errors, { separator: "\n  " });
-        console.error("  Schema validation errors:\n  " + text);
-      } else {
-        console.error("  " + err.message);
+      console.log(`FAIL  schemas\\${file}`);
+      if (ajv.errors && ajv.errors.length) {
+        for (const err of ajv.errors) {
+          const loc = err.instancePath || err.schemaPath || "";
+          console.log(`  ${loc}: ${err.message}`);
+        }
       }
     }
-  }
-
-  if (hasErrors) {
-    console.error("\nSome schemas failed validation.");
-    process.exit(1);
-  } else {
-    console.log("\nAll schemas validated successfully.");
-    process.exit(0);
+  } catch (err) {
+    hasErrors = true;
+    console.log(`FAIL  schemas\\${file}`);
+    console.log(`  ${err.message}`);
   }
 }
 
-if (require.main === module) {
-  main();
+if (hasErrors) {
+  console.log("\nSome schemas failed validation.");
+  process.exit(1);
+} else {
+  console.log("\nAll schemas validated successfully.");
 }

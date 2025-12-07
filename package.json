@@ -1,8 +1,8 @@
 {
-  "name": "mova-spec-4.0.0",
-  "version": "1.0.0",
+  "name": "mova-spec",
+  "version": "4.1.0",
   "private": true,
-  "description": "MOVA (Machine-Operable Verbal Actions) is a language of machine-operable agreements about data and actions.",
+  "description": "MOVA (Machine-Operable Verbal Actions) 4.1.0 core specifications, schemas and examples.",
   "license": "Apache-2.0",
   "author": "Sergii Miasoiedov",
   "type": "commonjs",
