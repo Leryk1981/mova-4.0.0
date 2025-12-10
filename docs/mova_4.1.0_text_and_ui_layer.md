@@ -85,10 +85,6 @@ UI text is structured using `ds.ui_text_bundle_core_v1.schema.json`. Typical fie
   - `channel` must be `model_instruction`.
   - `text` instruction/guidance for the model.
   - `lang` optional.
-- `log_text` — optional object:
-  - `channel` must be `system_log`.
-  - `text` diagnostic/log text; never a prompt or user-facing.
-  - `lang` optional.
 
 The schema keeps `_core_v1` identifiers unchanged; 4.1.1 only clarifies channel alignment and separation.
 
@@ -96,7 +92,7 @@ The schema keeps `_core_v1` identifiers unchanged; 4.1.1 only clarifies channel 
 
 - **Human text (`human_ui`)** — clean UI copy; must not contain model prompts.
 - **Model instructions (`model_instruction`)** — guidance for executors/models; never shown to users.
-- **Logs (`system_log`)** — technical diagnostics; never used as prompts and never shown directly to users.
+- **Logs (`system_log`)** — technical diagnostics; never used as prompts and never shown directly to users; may be carried in separate log records or extensions, not as a core field inside the bundle.
 - **Deprecated (`mixed_legacy`)** — not used in new bundles; keep for migration only when explicitly required.
 
 ### 4.3. Example
@@ -115,10 +111,6 @@ The schema keeps `_core_v1` identifiers unchanged; 4.1.1 only clarifies channel 
     "channel": "model_instruction",
     "lang": "en",
     "text": "Ask the user for their date of birth in a calm, clear tone. Do not explain legal details here; focus only on the format and importance of accuracy."
-  },
-  "log_text": {
-    "channel": "system_log",
-    "text": "Rendered birth date question bundle; awaiting user input."
   }
 }
 ```
@@ -127,7 +119,7 @@ The schema keeps `_core_v1` identifiers unchanged; 4.1.1 only clarifies channel 
 
 ## 5. Alignment with global.text_channel_catalog_v1
 
-- `human_text.channel`, `model_text.channel`, and `log_text.channel` **must** use ids from `global.text_channel_catalog_v1`.
+- `human_text.channel` and `model_text.channel` **must** use ids from `global.text_channel_catalog_v1`; system/log text should use `system_log` in separate logging contexts or extensions when present.
 - New channels require updating `global.text_channel_catalog_v1`; do not invent ad-hoc ids inside products.
 - Executors and tooling should validate bundles against both the schema and the catalog to prevent mixed or misplaced text.
 - Namespaced extensions are acceptable only after being added to the catalog; core ids (`human_ui`, `model_instruction`, `system_log`) must remain available.
@@ -145,7 +137,7 @@ The schema keeps `_core_v1` identifiers unchanged; 4.1.1 only clarifies channel 
 ## 7. Responsibilities of tools and executors
 
 - **Enforce channel separation**  
-  Validate that `human_text.channel = "human_ui"`, `model_text.channel = "model_instruction"`, and `log_text.channel = "system_log"` when present; prevent use of `human_text` as prompts.
+  Validate that `human_text.channel = "human_ui"` and `model_text.channel = "model_instruction"`; prevent use of `human_text` as prompts. If system/log text is included via extensions, it must use the `system_log` channel and stay non-prompt.
 
 - **Respect catalog rules**  
   Apply rules from `global.text_channel_catalog_v1.json` (no LLM instructions in `meta/ext`; model text not shown to users; logs not used as prompts).

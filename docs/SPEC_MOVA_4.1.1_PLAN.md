@@ -24,7 +24,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 
 ### C. Text & UI layer
 - [ ] C1: Sync text_channel catalog with ui_text_bundle schema.
-- [ ] C2: Update text/UI layer doc (human vs model vs log text rules).
+- [x] C2: Update text/UI layer doc (human vs model vs log text rules).
 
 ### D. Layers & namespaces
 - [ ] D1: Update layers/namespaces rules (red_core / skills / infra).
@@ -41,6 +41,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 ## Status / Progress
 
 - Security layer: core doc updated to 4.1.1; catalog and examples alignment tracked under B1/B2.
+- Text/UI layer: doc updated to 4.1.1, headings bumped; channel separation clarified.
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 
