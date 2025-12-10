@@ -2,7 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mova.dev/schemas/ds.ui_text_bundle_core_v1.schema.json",
   "title": "ds.ui_text_bundle_core_v1",
-  "description": "Core schema for UI text bundles with strict separation between human-facing text and model instructions.",
+  "$comment": "Text channels must align with global.text_channel_catalog_v1 (human_ui, model_instruction, system_log; mixed_legacy is deprecated and not used in new bundles).",
+  "description": "Core schema for UI text bundles with strict separation between human-facing text, model instructions, and system/log text.",
   "allOf": [
     {
       "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
@@ -71,6 +72,30 @@
             "text": {
               "type": "string",
               "description": "Instruction or guidance for the model on how to interpret this UI element and related data."
+            }
+          },
+          "required": [
+            "channel",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        "log_text": {
+          "type": "object",
+          "description": "Optional system/log text for diagnostics; never used as prompts or shown to users.",
+          "properties": {
+            "channel": {
+              "type": "string",
+              "const": "system_log",
+              "description": "Channel id from global.text_channel_catalog_v1. Must be system_log."
+            },
+            "lang": {
+              "type": "string",
+              "description": "IETF language tag for the log text, if applicable."
+            },
+            "text": {
+              "type": "string",
+              "description": "Technical log or diagnostic text associated with this UI context; not a prompt."
             }
           },
           "required": [
