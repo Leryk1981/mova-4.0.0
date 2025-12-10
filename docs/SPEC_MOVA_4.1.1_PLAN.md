@@ -35,8 +35,8 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - [x] E2: Cross-link operator-frame from constitution, episodes, security docs.
 
 ### F. Release notes
-- [ ] F1: Update version mentions from 4.1.0 to 4.1.1 in spec texts (where appropriate).
-- [ ] F2: Create MOVA_4.1.1_RELEASE_NOTES.md (added/clarified/extracted items).
+- [x] F1: Update version mentions from 4.1.0 to 4.1.1 in spec texts (where appropriate).
+- [x] F2: Create MOVA_4.1.1_RELEASE_NOTES.md (added/clarified/extracted items).
 
 ## Status / Progress
 
@@ -45,6 +45,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - Layers/namespaces: rules refreshed for 4.1.1; Smartlink and other domains scoped to skills layer.
 - Core catalog and security schemas now explicitly aligned with global.security_catalog_v1 and the red-core inventory (examples included in this slice).
 - Operator frame: formalised as a 4.1.1 doc; constitution, episodes, and security docs now reference it as the auditing lens.
+- Release notes created; core/global/runtime docs marked as 4.1.1 with applicability notes.
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 

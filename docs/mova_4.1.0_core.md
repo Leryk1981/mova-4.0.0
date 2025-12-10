@@ -1,4 +1,4 @@
-# MOVA 4.1.0 — Core Specification (Constitutional Draft)
+# MOVA 4.1.1 — Core Specification (Constitutional Draft)
 
 > Canonical language of this specification: **English for text and identifiers** (`ds.*`, `env.*`, `global.*`, `verbs`).  
 > All schema names, envelope types, roles and statuses are fixed in English.
@@ -24,7 +24,7 @@ MOVA 4.0.0 already introduced:
 - episodes (records of work);
 - global dictionaries (`global.*`).
 
-MOVA 4.1.0 completes the **constitutional core** by adding:
+MOVA 4.1.1 completes the **constitutional core** by adding:
 
 - a standard **episode frame** (`ds.mova_episode_core_v1`);
 - a minimal, extensible **security layer**:
@@ -82,7 +82,7 @@ Free text is allowed **inside fields**, but:
 - there is always a **schema** describing where that text lives;
 - the schema defines how the text relates to data and behaviour.
 
-MOVA 4.1.0 standardises the **base form** of data schemas:
+MOVA 4.1.1 standardises the **base form** of data schemas:
 
 - `ds.mova_schema_core_v1.schema.json` — embedded via `allOf` into red core schemas.  
   It provides:
@@ -129,7 +129,7 @@ An envelope typically includes:
 - one or more payload fields referencing `ds.*` schemas;
 - optional `meta` for technical metadata.
 
-Examples in MOVA 4.1.0:
+Examples in MOVA 4.1.1:
 
 - `env.mova4_core_catalog_publish_v1` (verb `publish`) — publishing the MOVA core catalog to a registry;
 - `env.instruction_profile_publish_v1` (verb `publish`) — publishing an instruction profile to an executor or guard;
@@ -141,7 +141,7 @@ Envelopes do not contain business logic. They are **typed containers** that give
 
 Episodes capture what happened in the system as **structured data**.
 
-MOVA 4.1.0 defines:
+MOVA 4.1.1 defines:
 
 - `ds.mova_episode_core_v1.schema.json` — base episode frame;
 - `global.episode_type_catalog_v1.json` — core episode type dictionary;
@@ -186,7 +186,7 @@ Episodes are recorded via envelopes, for example:
 
 The `global.*` family defines shared **dictionaries and vocabularies**.  
 
-MOVA 4.1.0 recognises several key global catalogs:
+MOVA 4.1.1 recognises several key global catalogs:
 
 - **Security catalog**  
   `global.security_catalog_v1.json` defines:
@@ -249,7 +249,7 @@ Red core schemas must:
 - define clear, machine-verifiable constraints;
 - avoid embedding executable code or prompts.
 
-Examples of red core schemas in MOVA 4.1.0:
+Examples of red core schemas in MOVA 4.1.1:
 
 - `ds.mova_schema_core_v1` — base form for ds-schemas;
 - `ds.mova_episode_core_v1` — base episode frame;
@@ -292,7 +292,7 @@ Envelopes are **typed messages** that perform speech-acts over data. They:
 - carry one or more payloads referencing `ds.*` schemas;
 - optionally contain technical metadata.
 
-Examples in MOVA 4.1.0:
+Examples in MOVA 4.1.1:
 
 - `env.mova4_core_catalog_publish_v1`
   - verb `publish`;
@@ -320,7 +320,7 @@ They are not logs in the traditional string-based sense. They are **structured d
 - can be queried as data;
 - can be aggregated into pattern or genetic memory layers.
 
-MOVA 4.1.0 defines:
+MOVA 4.1.1 defines:
 
 - the core episode frame;
 - the security event specialisation;
@@ -342,7 +342,7 @@ Executors are systems that:
 - perform work (using any internal implementation);
 - produce envelopes and episodes as output.
 
-MOVA 4.1.0 introduces neutral contracts for describing executors and external systems:
+MOVA 4.1.1 introduces neutral contracts for describing executors and external systems:
 
 1. **Runtime binding core**
 
@@ -383,7 +383,7 @@ Executors are free to use any deployment and runtime technology, as long as they
 
 ## 5. Versioning
 
-Versioning in MOVA 4.1.0 operates on several levels.
+Versioning in MOVA 4.1.1 operates on several levels.
 
 1. **MOVA core model version**
 
@@ -411,7 +411,7 @@ Versioning in MOVA 4.1.0 operates on several levels.
      - `verbs`;
      - `envelopes`;
      - `episode_types`.
-   - In MOVA 4.1.0, example catalog versions such as `4.1.0-core-draft-6` show the evolution of the catalog itself.
+   - In MOVA 4.1.1, example catalog versions such as `4.1.0-core-draft-6` show the evolution of the catalog itself.
    - The catalog is published via `env.mova4_core_catalog_publish_v1`.
 
 5. **Profiles and policies**
@@ -430,5 +430,11 @@ Executors and tools should:
 
 ---
 
-This document defines the **constitutional core** of MOVA 4.1.0.  
+# Applicability to MOVA 4.1.1
+
+This is the reviewed 4.1.0 text for MOVA 4.1.1. The core structure, verbs, runtime/connector concepts remain valid; 4.1.1 only clarifies security/text/layers and adds the operator frame (see `MOVA_4.1.1_RELEASE_NOTES.md` and related docs).
+
+---
+
+This document defines the **constitutional core** of MOVA 4.1.1.  
 All higher-level artefacts (domain skills, products, zero-code tools, MOVA-based experts and self-improvement layers) must treat this core as a stable contract and build on top of it without redefining or weakening its guarantees.
