@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mova.dev/schemas/ds.mova4_core_catalog_v1.schema.json",
-  "title": "MOVA 4.0.0 Core Catalog",
-  "description": "Meta-schema for describing MOVA data types, verbs, envelopes and episodes in a single catalog document.",
+  "title": "MOVA 4.1.1 Core Catalog (meta-schema)",
+  "description": "Meta-schema for describing MOVA red-core data types, verbs, envelopes and episode types in a single catalog document (no domain-specific schemas).",
   "type": "object",
   "properties": {
     "version": {
@@ -17,7 +17,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Canonical id, e.g. ds.smartlink_config_v1"
+            "description": "Canonical id, e.g. ds.mova_schema_core_v1"
           },
           "title": {
             "type": "string"
@@ -65,7 +65,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Canonical id, e.g. env.smartlink_route_decision_v1"
+            "description": "Canonical id, e.g. env.mova4_core_catalog_publish_v1"
           },
           "verb": {
             "type": "string",
@@ -104,7 +104,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Canonical id, e.g. ds.pattern_memory_episode_smartlink_v1"
+            "description": "Canonical id, e.g. ds.security_event_episode_core_v1"
           },
           "description": {
             "type": "string"

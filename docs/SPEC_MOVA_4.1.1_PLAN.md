@@ -14,12 +14,12 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 
 ### A. Red core & catalogs
 - [ ] A1: Clean up core catalog (remove domain schemas, include all red-core ds/env/global).
-- [ ] A2: Sync mova4 core catalog schema with actual red-core artifacts.
-- [ ] A3: Finalize required global catalogs (episode types, layers/namespaces, text channels, security).
+- [x] A2: Sync mova4 core catalog schema with actual red-core artifacts.
+- [x] A3: Finalize required global catalogs (episode types, layers/namespaces, text channels, security).
 
 ### B. Security layer
-- [ ] B1: Align instruction_profile, security_event schemas and security catalog.
-- [ ] B2: Update examples for instruction profiles and security events.
+- [x] B1: Align instruction_profile, security_event schemas and security catalog.
+- [x] B2: Update examples for instruction profiles and security events.
 - [x] B3: Update security-layer documentation for 4.1.1.
 
 ### C. Text & UI layer
@@ -43,6 +43,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - Security layer: core doc updated to 4.1.1; catalog and examples alignment tracked under B1/B2.
 - Text/UI layer: doc updated to 4.1.1, headings bumped; channel separation clarified.
 - Layers/namespaces: rules refreshed for 4.1.1; Smartlink and other domains scoped to skills layer.
+- Core catalog and security schemas now explicitly aligned with global.security_catalog_v1 and the red-core inventory (examples included in this slice).
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 

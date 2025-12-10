@@ -12,12 +12,12 @@
       "properties": {
         "episode_type": {
           "type": "string",
-          "description": "Episode type must indicate a security event. Convention: security_event[/subtype].",
+          "description": "Episode type must indicate a security event. Convention: security_event[/subtype], where subtype normally matches a security_event_type id.",
           "pattern": "^security_event(/.+)?$"
         },
         "security_event_type": {
           "type": "string",
-          "description": "Concrete type of security event. Base types (auth_failed, policy_violation, rate_limit_exceeded, data_access_suspected, instruction_misuse, config_change, infrastructure_issue, other) or namespaced type like vendorX:custom_event.",
+          "description": "Concrete type of security event. Should use an id from global.security_catalog_v1.security_event_type[*].id (e.g. prompt_injection_suspected), or a namespaced custom type (vendorX:custom_event) if extended.",
           "minLength": 1
         },
         "security_event_category": {
@@ -48,7 +48,7 @@
         },
         "policy_profile_id": {
           "type": "string",
-          "description": "Identifier of the security policy profile that applies, e.g. mova_security_default_v1, mova_security_dev_v1."
+          "description": "Identifier of the security policy profile that applies, e.g. mova_security_default_v1. Should match an id from global.security_catalog_v1.security_policy_profile[*].id."
         },
         "policy_ref": {
           "type": "object",
@@ -71,7 +71,7 @@
         },
         "security_model_version": {
           "type": "string",
-          "description": "Version of the MOVA security model used when producing this episode, e.g. 1.0.0."
+          "description": "Version of the MOVA security model used when producing this episode, e.g. 1.0.0. Should match the security_model_version of the referenced policy profile in global.security_catalog_v1."
         },
         "detection_source": {
           "type": "string",
@@ -98,7 +98,7 @@
             "properties": {
               "action_type": {
                 "type": "string",
-                "description": "Type of recommended action, e.g. alert_owner, block_request, log_only, require_human_review, adjust_policy."
+                "description": "Type of recommended action, e.g. log, alert, block, fallback. Should use an id from global.security_catalog_v1.security_action_type[*].id."
               },
               "reason": {
                 "type": "string",
@@ -128,7 +128,7 @@
             "properties": {
               "action_type": {
                 "type": "string",
-                "description": "Type of action taken."
+                "description": "Type of action taken. Should use an id from global.security_catalog_v1.security_action_type[*].id."
               },
               "taken_at": {
                 "type": "string",
