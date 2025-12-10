@@ -46,6 +46,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - Core catalog and security schemas now explicitly aligned with global.security_catalog_v1 and the red-core inventory (examples included in this slice).
 - Operator frame: formalised as a 4.1.1 doc; constitution, episodes, and security docs now reference it as the auditing lens.
 - Release notes created; core/global/runtime docs marked as 4.1.1 with applicability notes.
+- Version sweep completed: filenames now `mova_4.1.1_*`, examples use `mova_version = 4.1.1`, core catalog version `4.1.1-core`.
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 
@@ -72,10 +73,10 @@ It will be used as a baseline for the 4.1.1 cleanup and catalog alignment.
 
 ## References
 
-mova_4.1.0_constitution_en.md
-mova_4.1.0_core.md
-mova_4.1.0_security_layer.md
-mova_4.1.0_text_and_ui_layer.md
-mova_4.1.0_layers_and_namespaces.md
+mova_4.1.1_constitution_en.md
+mova_4.1.1_core.md
+mova_4.1.1_security_layer.md
+mova_4.1.1_text_and_ui_layer.md
+mova_4.1.1_layers_and_namespaces.md
 global.*
 ds.*, env.*

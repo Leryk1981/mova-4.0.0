@@ -20,7 +20,7 @@
         },
         "mova_version": {
           "type": "string",
-          "description": "MOVA language version used when recording this episode, e.g. 4.1.0."
+          "description": "MOVA language version used when recording this episode, e.g. 4.1.1."
         },
         "recorded_at": {
           "type": "string",

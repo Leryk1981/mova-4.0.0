@@ -1,5 +1,5 @@
 {
-  "version": "4.1.0-core-draft-6",
+  "version": "4.1.1-core",
   "data_types": [
     {
       "id": "ds.mova_schema_core_v1",

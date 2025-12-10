@@ -49,4 +49,5 @@
 - Spec docs: constitution, core, global & verbs, runtime & connectors, security layer, text/UI layer, layers & namespaces, operator frame, episodes/genetic layer.
 - Schemas: `ds.mova4_core_catalog_v1`, `env.mova4_core_catalog_publish_v1`, `ds.security_event_episode_core_v1`, `ds.instruction_profile_core_v1`, `ds.ui_text_bundle_core_v1`.
 - Catalogs: `global.layers_and_namespaces_v1`, `global.security_catalog_v1`, `global.text_channel_catalog_v1`, `global.episode_type_catalog_v1`.
-- Examples: `mova4_core_catalog.example.json`, `env.mova4_core_catalog_publish_v1.example.json`, `env.instruction_profile_publish_v1.example.json`, `env.security_event_store_v1.example.json`.
+- Examples: `mova4_core_catalog.example.json`, `env.mova4_core_catalog_publish_v1.example.json`, `env.instruction_profile_publish_v1.example.json`, `env.security_event_store_v1.example.json` (mova_version bumped to 4.1.1; core catalog version set to `4.1.1-core` with provenance note).
+- Core spec files renamed to `mova_4.1.1_*.md` to reflect the 4.1.1 patch release.
