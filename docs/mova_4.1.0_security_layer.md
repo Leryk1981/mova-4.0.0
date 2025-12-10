@@ -349,6 +349,12 @@ Executors should know which `security_model_version` they support and reject or 
 
 ---
 
+## Operator frame for security
+
+Security episodes are the application of the operator frame to risks and policies: `policy_profile_id`, `security_model_version`, `recommended_actions`, `actions_taken`, and `risks` align to the frame’s why/risks/result/metrics axes. The security layer in MOVA 4.1.1 is expected to be designed and audited using the operator frame described in `mova_4.1.1_operator_frame.md`.
+
+---
+
 ## 8. Integration with episodes and genetic layer
 
 Security events are part of the broader **episode and genetic layer**.

@@ -31,8 +31,8 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - [x] D2: Move Smartlink and other domain schemas out of the red core docs into skills-level examples.
 
 ### E. Operator frame
-- [ ] E1: Add operator-frame doc (what/how/where/when/why/...).
-- [ ] E2: Cross-link operator-frame from constitution, episodes, security docs.
+- [x] E1: Add operator-frame doc (what/how/where/when/why/...).
+- [x] E2: Cross-link operator-frame from constitution, episodes, security docs.
 
 ### F. Release notes
 - [ ] F1: Update version mentions from 4.1.0 to 4.1.1 in spec texts (where appropriate).
@@ -44,6 +44,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - Text/UI layer: doc updated to 4.1.1, headings bumped; channel separation clarified.
 - Layers/namespaces: rules refreshed for 4.1.1; Smartlink and other domains scoped to skills layer.
 - Core catalog and security schemas now explicitly aligned with global.security_catalog_v1 and the red-core inventory (examples included in this slice).
+- Operator frame: formalised as a 4.1.1 doc; constitution, episodes, and security docs now reference it as the auditing lens.
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 

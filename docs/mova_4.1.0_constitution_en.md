@@ -1,7 +1,7 @@
-MOVA 4.1 — Constitutional Core (Draft)
-0. Frame: what MOVA 4.1 is
+MOVA 4.1.1 — Constitutional Core (Draft)
+0. Frame: what MOVA 4.1.1 is
 
-MOVA 4.1 defines the constitutional core of the MOVA language. It is a specification of contracts, not an execution environment.
+MOVA 4.1.1 defines the constitutional core of the MOVA language. It is a specification of contracts, not an execution environment.
 
 MOVA itself never executes any code. It does not define:
 
@@ -30,7 +30,7 @@ verbs — canonical operations over data,
 
 episode schemas for recording work.
 
-MOVA 4.1 completes the constitutional layer on top of that foundation. It adds:
+MOVA 4.1.1 completes the constitutional layer on top of that foundation. It adds:
 
 a formal episode core,
 
@@ -42,7 +42,7 @@ neutral contracts for runtimes and connectors,
 
 and a strict separation between human-facing text and model instructions.
 
-Once MOVA 4.1 is in place, the language can be used as a stable constitution for:
+Once MOVA 4.1.1 is in place, the language can be used as a stable constitution for:
 
 MOVA-based experts and assistants,
 
@@ -50,16 +50,20 @@ zero-code / low-code tooling for architects,
 
 and self-improvement flows based on recorded episodes.
 
-MOVA 4.1 itself does not ship an expert, zero-code interface or improvement loops.
+MOVA 4.1.1 itself does not ship an expert, zero-code interface or improvement loops.
 It prepares the ground for them.
 
-1. What belongs to MOVA 4.1 (constitutional core)
+## Operator frame
 
-This section describes what is explicitly part of the red core in MOVA 4.1 and is represented in JSON as ds.*, env.* and global.* schemas and catalogs.
+MOVA 4.1.1 introduces an **operator frame** as an official analytical lens for the red core. It is a normative text (not a JSON schema) that every new `ds.*`, `env.*`, `global.*`, or episode should be evaluated against. See `mova_4.1.1_operator_frame.md` for the full set of axes (what/how/where/when/why/forWhat/who/howMuch/risks/result/context/lifecycle/metrics). Any new red-core artefact must be “walked through” the operator frame during design and audit.
+
+1. What belongs to MOVA 4.1.1 (constitutional core)
+
+This section describes what is explicitly part of the red core in MOVA 4.1.1 and is represented in JSON as ds.*, env.* and global.* schemas and catalogs.
 
 1.1. Primitives and dogmas
 
-MOVA 4.1 fixes the following dogmas for the red core:
+MOVA 4.1.1 fixes the following dogmas for the red core:
 
 MOVA never executes
 
@@ -127,7 +131,7 @@ schema metadata stays safe and stable across tools and runtimes.
 
 1.3. Episode frame (genetic layer core)
 
-MOVA 4.1 standardises how episodes of work are recorded.
+MOVA 4.1.1 standardises how episodes of work are recorded.
 
 The base episode shape is defined by:
 
@@ -177,7 +181,7 @@ plan/task
 
 security_event/prompt_injection_suspected
 
-For security-related episodes MOVA 4.1 defines a specialisation:
+For security-related episodes MOVA 4.1.1 defines a specialisation:
 
 ds.security_event_episode_core_v1.schema.json
 
@@ -205,9 +209,9 @@ detection_confidence
 
 This is the canonical shape for all security events in MOVA.
 
-1.4. Security layer (main new block in 4.1)
+1.4. Security layer (main new block in 4.1.x)
 
-MOVA 4.1 adds a minimal but extensible security layer to the red core.
+MOVA 4.1.1 adds a minimal but extensible security layer to the red core.
 It has three main components:
 
 Instruction profiles
@@ -291,7 +295,7 @@ the security layer is part of the constitutional red core, not an afterthought.
 
 1.5. Layering and namespace policy
 
-MOVA 4.1 formalises the separation between:
+MOVA 4.1.1 formalises the separation between:
 
 red core — the language constitution;
 
@@ -328,7 +332,7 @@ Domain-level schemas (for example ds.smartlink_config_v1) may appear in catalogs
 
 1.6. Red contracts for runtimes and connectors
 
-MOVA 4.1 introduces two neutral data schemas that describe how execution and external systems are bound to MOVA without fixing any particular vendor.
+MOVA 4.1.1 introduces two neutral data schemas that describe how execution and external systems are bound to MOVA without fixing any particular vendor.
 
 Runtime binding core
 
@@ -381,7 +385,7 @@ env.mova4_core_catalog_publish_v1.example.json
 
 1.7. Rules for “human” vs “model” text
 
-MOVA 4.1 formalises the separation between text that is:
+MOVA 4.1.1 formalises the separation between text that is:
 
 shown to humans,
 
@@ -443,10 +447,10 @@ instructions can be audited, versioned and controlled as part of the MOVA langua
 
 UI flows can be built with predictable behaviour and without hidden prompts in user-visible text.
 
-2. What does not belong to MOVA 4.1 (4.2+ line)
+2. What does not belong to MOVA 4.1.1 (4.2+ line)
 
-Some important ideas are intentionally out of scope for MOVA 4.1.
-They depend on the 4.1 core, but do not belong to the constitutional layer.
+Some important ideas are intentionally out of scope for MOVA 4.1.1.
+They depend on the 4.1.1 core, but do not belong to the constitutional layer.
 
 2.1. MOVA Expert
 
@@ -460,13 +464,13 @@ and can help author new ds/env/global/episode schemas.
 
 Such an expert would:
 
-use MOVA 4.1 contracts as its internal language,
+use MOVA 4.1.1 contracts as its internal language,
 
 interpret episodes (including security events) to improve its behaviour.
 
 However:
 
-MOVA 4.1 does not define how such an expert is implemented;
+MOVA 4.1.1 does not define how such an expert is implemented;
 
 the expert will live above the red core, using MOVA as its constitution.
 
@@ -480,7 +484,7 @@ integrated validation and publishing against the MOVA core catalog;
 
 views over episodes, security events and instruction profiles.
 
-MOVA 4.1 only defines:
+MOVA 4.1.1 only defines:
 
 the contracts that such tools must respect;
 
@@ -498,12 +502,12 @@ analyse them,
 
 and update skills, instruction profiles and templates over time.
 
-MOVA 4.1 provides the episode frame and security episode core needed for this.
+MOVA 4.1.1 provides the episode frame and security episode core needed for this.
 The actual algorithms, pipelines and tooling for self-improvement are left for later iterations of MOVA and for concrete products built on top.
 
 3. Checklist for MOVA 4.1
 
-The following items summarise what needs to be present for MOVA 4.1 to be considered complete at the constitutional level.
+The following items summarise what needs to be present for MOVA 4.1.1 to be considered complete at the constitutional level.
 
 Core ds / env / catalog
 

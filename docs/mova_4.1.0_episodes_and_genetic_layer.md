@@ -1,10 +1,10 @@
-# MOVA 4.1.0 — Episodes and Genetic Layer (Pattern Memory)
+# MOVA 4.1.1 — Episodes and Genetic Layer (Pattern Memory)
 
 > Audience: authors of episode schemas, skill developers, and MOVA-based tools that analyse system behaviour.
 
-This document explains how **episodes** are represented in MOVA 4.1.0 and how they form the basis of the **genetic layer** (pattern memory).
+This document explains how **episodes** are represented in MOVA 4.1.1 and how they form the basis of the **genetic layer** (pattern memory).
 
-It is aligned with the MOVA 4.1.0 core specification and the following schemas and catalogs:
+It is aligned with the MOVA 4.1.1 core specification and the following schemas and catalogs:
 
 - `ds.mova_episode_core_v1.schema.json`
 - `ds.security_event_episode_core_v1.schema.json`
@@ -13,6 +13,8 @@ It is aligned with the MOVA 4.1.0 core specification and the following schemas a
 - `ds.instruction_profile_core_v1.schema.json`
 - `env.security_event_store_v1.schema.json`
 - `ds.mova4_core_catalog_v1.schema.json`
+
+Episodes should be designed and audited through the **operator frame** (`mova_4.1.1_operator_frame.md`): fields like `result`, `metrics`, `context`, and `lifecycle` are direct answers to the operator questions (what/how/where/when/why/forWhat/who/howMuch/risks/result/context/lifecycle/metrics).
 
 ---
 
@@ -38,7 +40,7 @@ They are **intentional records**: each episode represents a step that matters fo
 
 ---
 
-## 2. Minimal episode shape in MOVA 4.1.0
+## 2. Minimal episode shape in MOVA 4.1.1
 
 The base shape of all episodes is defined by:
 
@@ -101,7 +103,7 @@ The core dictionary is defined by:
 
 ### 3.1. Core episode types
 
-The following core ids are stabilised in MOVA 4.1.0:
+The following core ids are stabilised in MOVA 4.1.1:
 
 - `execution` — an episode that records **actual execution** of a step:
   - a plan applied,
@@ -125,7 +127,7 @@ The following core ids are stabilised in MOVA 4.1.0:
 
 ### 3.2. Format with subtypes
 
-MOVA 4.1.0 recommends the following format:
+MOVA 4.1.1 recommends the following format:
 
 - `episode_type = "<core_id>[/<subtype>]"`
 
@@ -209,7 +211,7 @@ Executors should focus on recording **steps that matter for audit, analysis and 
 
 ## 6. Episode structures in MOVA
 
-In MOVA 4.1.0, episodes are defined by schemas that extend:
+In MOVA 4.1.1, episodes are defined by schemas that extend:
 
 - `ds.mova_episode_core_v1` for general episodes;
 - `ds.security_event_episode_core_v1` for security events.
@@ -280,7 +282,7 @@ Examples of how episodes feed the genetic layer:
   - episodes of AI-assisted coding show which suggestions are accepted or rejected;
   - skills and prompts can be adjusted based on real usage patterns.
 
-MOVA 4.1.0 defines the **episode frame** and **security event core** required to build genetic-layer solutions.  
+MOVA 4.1.1 defines the **episode frame** and **security event core** required to build genetic-layer solutions.  
 Concrete schemas and envelopes for storing aggregated pattern memory (for example, pattern summaries or optimisation decisions) live in **skills** and **product** layers and are not part of the red core.
 
 ---
@@ -313,7 +315,7 @@ Executors are free to choose how to persist episodes, but the **shape** of episo
 
 ## 9. Role of MOVA-based experts and tools
 
-MOVA 4.1.0 does not define a specific “MOVA expert” skill at the red core level.  
+MOVA 4.1.1 does not define a specific “MOVA expert” skill at the red core level.  
 However, MOVA-based experts and tools are expected to use episodes and the genetic layer in the following ways:
 
 - **Design assistance**
@@ -344,7 +346,7 @@ They form a **systematic memory** on top of which MOVA-based scenarios and the M
 
 ## 10. Checklist for episode schema authors
 
-When designing episode schemas in MOVA 4.1.0, follow this checklist:
+When designing episode schemas in MOVA 4.1.1, follow this checklist:
 
 1. **Base on the core**
 
