@@ -27,8 +27,8 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 - [x] C2: Update text/UI layer doc (human vs model vs log text rules).
 
 ### D. Layers & namespaces
-- [ ] D1: Update layers/namespaces rules (red_core / skills / infra).
-- [ ] D2: Move Smartlink and other domain schemas out of the red core docs into skills-level examples.
+- [x] D1: Update layers/namespaces rules (red_core / skills / infra).
+- [x] D2: Move Smartlink and other domain schemas out of the red core docs into skills-level examples.
 
 ### E. Operator frame
 - [ ] E1: Add operator-frame doc (what/how/where/when/why/...).
@@ -42,6 +42,7 @@ MOVA 4.1.1 — це патч-оновлення поверх 4.1.0 без лом
 
 - Security layer: core doc updated to 4.1.1; catalog and examples alignment tracked under B1/B2.
 - Text/UI layer: doc updated to 4.1.1, headings bumped; channel separation clarified.
+- Layers/namespaces: rules refreshed for 4.1.1; Smartlink and other domains scoped to skills layer.
 
 ## Current Red Core Inventory (4.1.0 snapshot)
 

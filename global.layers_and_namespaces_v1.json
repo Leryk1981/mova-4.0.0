@@ -5,7 +5,7 @@
       "id": "red_core",
       "color": "red",
       "title": "MOVA red core",
-      "description": "Constitutional core of MOVA: schemas and envelopes that define the language itself, its security model, catalog, runtime and connector contracts. Must stay vendor-neutral and execution-free.",
+      "description": "Constitutional core of MOVA: neutral ds/env/global contracts that define the language, episodes, security layer, text/UI layer, runtime/connector forms, and catalogs. No domain/product schemas here; vendor-neutral and execution-free.",
       "allowed_kinds": [
         "ds",
         "env",
@@ -24,7 +24,7 @@
       "id": "skills",
       "color": "yellow",
       "title": "MOVA skills layer",
-      "description": "Skills and domain scenarios built on top of the red core. They use ds/env from the core and add domain-specific data types and episodes.",
+      "description": "Domain skills and scenarios built on top of the red core. They use ds/env/global from the core and add domain-specific data types and episodes (Smartlink, social, ecommerce, barbershop, etc.).",
       "allowed_kinds": [
         "ds",
         "env"
@@ -41,7 +41,7 @@
       "id": "infra",
       "color": "yellow",
       "title": "Infrastructure & vendor bindings",
-      "description": "Bindings to concrete runtimes and vendors (Cloudflare, OpenAI, Google, etc.) that implement skills using external platforms.",
+      "description": "Bindings to concrete runtimes and vendors (Cloudflare, OpenAI, Google, VS Code, sandbox/mock) that execute skills using external platforms without changing the MOVA language.",
       "allowed_kinds": [
         "ds",
         "env",

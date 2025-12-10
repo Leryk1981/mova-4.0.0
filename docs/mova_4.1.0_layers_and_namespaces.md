@@ -1,11 +1,17 @@
-# MOVA 4.1.0 — Layered Model and Namespaces
+# MOVA 4.1.1 — Layered Model and Namespaces
 
 > Canonical language of this document: **English for text and identifiers** (`ds.*`, `env.*`, `global.*`, `skill.*`, etc.).  
 > This document describes how the MOVA language is embedded into larger systems through a layered architecture and a consistent namespace policy.
 
+## What’s new in 4.1.1 (layers & namespaces)
+
+- Security layer is a mandatory part of the red core (see security-layer doc).
+- Text/UI layer relies on `global.text_channel_catalog_v1.json` and `ds.ui_text_bundle_core_v1.schema.json` and is in the red core.
+- Smartlink and other domain-specific examples are explicitly placed in the skills layer, not in the core.
+
 ## 1. Purpose
 
-The MOVA 4.1.0 core specification defines the language itself:
+The MOVA 4.1.1 core specification defines the language itself:
 
 - data schemas (`ds.*`);
 - envelopes (`env.*`);
@@ -35,7 +41,7 @@ The canonical JSON representation of this model is provided by:
 
 ## 2. Overview of layers
 
-MOVA 4.1.0 works with three main technical layers and one product layer on top.
+MOVA 4.1.1 works with three main technical layers and one product layer on top.
 
 ### 2.1. Red core layer
 
@@ -49,19 +55,16 @@ The **red core** is the constitutional layer of MOVA. It contains only:
   - `ds.runtime_binding_core_v1`,
   - `ds.connector_core_v1`,
   - `ds.ui_text_bundle_core_v1`,
-  - `ds.mova4_core_catalog_v1`,
-  - other strictly core `ds.*`;
+  - `ds.mova4_core_catalog_v1`;
 - **envelopes** that operate on these schemas:
   - `env.mova4_core_catalog_publish_v1`,
   - `env.instruction_profile_publish_v1`,
-  - `env.security_event_store_v1`,
-  - other core `env.*`;
+  - `env.security_event_store_v1`;
 - **global catalogs**:
   - `global.security_catalog_v1.json`,
   - `global.episode_type_catalog_v1.json`,
   - `global.layers_and_namespaces_v1.json`,
-  - `global.text_channel_catalog_v1.json`,
-  - other core `global.*`;
+  - `global.text_channel_catalog_v1.json`;
 - **core verbs** such as `create`, `update`, `route`, `record`, `publish`.
 
 Characteristics of the red core:
@@ -69,6 +72,7 @@ Characteristics of the red core:
 - **vendor-neutral** — no provider or platform specific details;
 - **stable** — changes are rare and carefully versioned;
 - **minimal** — only constitutional constructs live here.
+- **domain-neutral** — no Smartlink, social, ecommerce or other domain schemas belong here.
 
 The red core answers the question:
 
@@ -97,6 +101,8 @@ The skills layer answers the question:
 
 > “What can this MOVA-based system actually do in this domain?”
 
+Smartlink, social, ecommerce and similar product/domain packs are **skills-layer examples**, not part of the red core.
+
 ### 2.3. Infra layer (runtimes and connectors)
 
 The **infra layer** connects MOVA artefacts to real execution environments and external systems. It includes:
@@ -122,6 +128,10 @@ Infra schemas and configurations:
 The infra layer answers the question:
 
 > “Where and how are these MOVA skills actually executed, and which external systems do they talk to?”
+
+Relation to runtime & connectors doc:
+
+- See `mova_4.1.0_runtime_and_connectors.md` for detailed patterns of runtime and connector descriptions.
 
 ### 2.4. Applications and UX
 
@@ -149,7 +159,7 @@ Identifiers (IDs) in MOVA — schema ids, envelope ids, catalog ids — follow a
 
 ### 3.1. General identifier rules
 
-For `ds.*`, `env.*`, `global.*` and other identifiers, MOVA 4.1.0 adopts the following general rules:
+For `ds.*`, `env.*`, `global.*` and other identifiers, MOVA 4.1.1 adopts the following general rules:
 
 - Identifiers must be **stable**:
   - once published, an id must not silently change meaning;
@@ -191,6 +201,7 @@ Characteristics of red core ids:
 - use the `mova` or clearly core prefixes (such as `security`, `runtime_binding_core`, `connector_core`);
 - are documented in the core catalog (`ds.mova4_core_catalog_v1`);
 - are versioned cautiously (new ids for breaking changes).
+- must not contain domain or product identifiers (Smartlink, SocialPack, Barbershop, etc.).
 
 No domain or vendor code is allowed to introduce new identifiers under `ds.mova_*` or other reserved core prefixes.
 
@@ -274,6 +285,7 @@ Rules:
 - Skills may **use** red core global catalogs (for example episode types, security types, text channels).
 - Skills may propose **new global catalogs** for domain use, but these must be clearly namespaced as domain globals, not core globals.
 - Red core schemas must not depend on specific skills or products.
+- Everything that calls itself **red_core** must be expressed via `ds.* / env.* / global.*` from the core catalog and must not include product- or domain-specific identifiers (Smartlink, SocialPack, Barbershop, etc.).
 
 All communication between red core and skills flows through:
 
@@ -347,6 +359,8 @@ It only ensures that:
 
 ### 5.2. Smartlink routing
 
+This is a **skills-layer example** (not part of the red core).
+
 - **Red core**:
   - core verbs including `route`;
   - `ds.ui_text_bundle_core_v1` for UI text, if used;
@@ -400,7 +414,7 @@ As long as infra continues to satisfy the contracts expressed in the red core an
 
 ## 7. Checklist for schema authors
 
-When adding new schemas or catalogs to a MOVA 4.1.0 universe:
+When adding new schemas or catalogs to a MOVA 4.1.1 universe:
 
 1. **Identify the layer**
 
