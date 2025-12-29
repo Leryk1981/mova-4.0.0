@@ -13,14 +13,13 @@
     "access": "public"
   },
   "files": [
-    "schemas/",
-    "examples/",
-    "docs/",
-    "bin/",
+    "schemas/**",
+    "examples/**",
+    "docs/**",
+    "bin/**",
     "README.md",
     "README.uk.md",
-    "LICENSE",
-    "global.*.json"
+    "LICENSE"
   ],
   "directories": {
     "doc": "docs",
