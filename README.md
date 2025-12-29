@@ -1,22 +1,24 @@
 # MOVA 4.1.1 — Machine-Operable Verbal Actions (Core Specification)
 
-## Статус и назначение репозитория
-- Репозиторий хранит каноническую спецификацию MOVA 4.1.1: JSON Schemas, текстовые нормы и примеры.
-- Источник истины для red-core сущностей (`ds.*`, `env.*`, `global.*`) — каталоги `schemas/` и документы из `docs/`.
-- Исполняемого кода нет: это каталог контрактов, а не платформа или агенты.
-- Текущая версия — 4.1.1; архив 4.0.0 сохранён в `docs/archive/4.0.0/` только для истории.
-- Примеры входных и выходных документов лежат в `examples/` и помогают понять форму данных.
-- Валидность схем проверяется локально через `npm test` (Ajv 2020-12); дополнительных проверок нет.
-- CI не настроен: запуск проверки лежит на авторе/контрибьюторах перед коммитами.
-- README даёт навигацию, а нормативные тексты расположены в `docs/`.
-- Обратная связь и изменения проходят через Issues/PR; ядро остаётся под контролем автора.
+Українська версія: [README.uk.md](README.uk.md)
 
-## Быстрый вход
-1. Пролистайте этот README: цели, обзор и список артефактов.
-2. Откройте `docs/mova_4.1.1_core.md` и `docs/mova_4.1.1_global_and_verbs.md` для базовой модели и словарей.
-3. Посмотрите `schemas/` и соответствующие примеры в `examples/`, чтобы увидеть фактические JSON-формы.
-4. Запустите `npm test`, чтобы убедиться, что схемы валидны в вашей среде.
-5. Для истории сравните с архивом `docs/archive/4.0.0/` (не меняйте его содержимое).
+## Status and repository purpose
+- This repository stores the canonical MOVA 4.1.1 specification: JSON Schemas, normative documents and examples.
+- The source of truth for red-core entities (`ds.*`, `env.*`, `global.*`) lives in `schemas/` and `docs/`.
+- There is no executable code: this is a contract catalog, not a platform or agents.
+- The current version is 4.1.1; the 4.0.0 archive is preserved in `docs/archive/4.0.0/` for historical reference.
+- Example input and output documents are in `examples/` to illustrate data shapes.
+- Schema validity is checked locally via `npm test` (Ajv 2020-12); there are no additional automated checks.
+- CI is not configured: contributors should run validation before commits.
+- This README provides navigation; normative texts are located in `docs/`.
+- Feedback and changes go through Issues/PRs; the core stays under the author's control.
+
+## Quickstart
+1. Read this README for goals, an overview, and a list of artefacts.
+2. Open `docs/mova_4.1.1_core.md` and `docs/mova_4.1.1_global_and_verbs.md` for the core model and verb catalogue.
+3. Review `schemas/` and matching examples in `examples/` to see actual JSON structures.
+4. Run `npm test` to confirm the schemas validate in your environment.
+5. For history, compare with the archive at `docs/archive/4.0.0/` (do not modify its contents).
 
 **MOVA (Machine-Operable Verbal Actions)** is a language of machine-operable agreements about data and actions.
 
