@@ -10,6 +10,7 @@
 - Приклади вхідних і вихідних документів у `examples/` допомагають зрозуміти структуру даних.
 - Валідність схем перевіряється локально через `npm test` (Ajv 2020-12); CI не налаштовано, тож перевірки слід запускати самостійно.
 - README дає навігацію; нормативні тексти розміщені в `docs/`.
+- NPM-пакет містить лише схеми, приклади та простий валідатор; це не SDK і не рантайм.
 - Зворотний зв'язок і зміни — через Issues/PR; ядро залишається під контролем автора.
 
 ## Швидкий старт
@@ -18,6 +19,31 @@
 3. Подивіться схеми в `schemas/` і відповідні приклади в `examples/`, щоб побачити фактичні JSON-структури.
 4. Запустіть `npm test`, щоб підтвердити валідність схем у своєму середовищі.
 5. Для історії ознайомтеся з архівом `docs/archive/4.0.0/` (не змінюйте його вміст).
+
+## Встановлення
+
+Встановіть опублікований пакет специфікації (схеми, документи, приклади та простий валідатор):
+
+```bash
+npm i @leryk1981/mova-spec
+```
+
+Це не SDK і не платформа виконання — лише специфікація та супровідні матеріали.
+
+## Перевірка JSON
+
+Скористайтеся вбудованим CLI для валідації документів за схемами MOVA:
+
+```bash
+# Валідація прикладу конверта за $id схеми
+npx mova-validate --schema https://mova.dev/schemas/env.instruction_profile_publish_v1.schema.json examples/env.instruction_profile_publish_v1.example.json
+
+# Валідація за іншим $id схеми
+npx mova-validate --schema https://mova.dev/schemas/ds.mova_episode_core_v1.schema.json examples/env.security_event_store_v1.example.json
+
+# Валідація за локальним файлом схеми
+npx mova-validate --schema schemas/ds.mova_schema_core_v1.schema.json examples/mova4_core_catalog.example.json
+```
 
 ### Посилання
 - [docs/](docs/)
