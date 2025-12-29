@@ -1,11 +1,27 @@
 {
-  "name": "mova-spec",
+  "name": "@leryk1981/mova-spec",
   "version": "4.1.1",
-  "private": true,
+  "private": false,
   "description": "MOVA (Machine-Operable Verbal Actions) 4.1.1 core specifications, schemas and examples.",
   "license": "Apache-2.0",
   "author": "Sergii Miasoiedov",
   "type": "commonjs",
+  "bin": {
+    "mova-validate": "bin/mova-validate.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "schemas/",
+    "examples/",
+    "docs/",
+    "bin/",
+    "README.md",
+    "README.uk.md",
+    "LICENSE",
+    "global.*.json"
+  ],
   "directories": {
     "doc": "docs",
     "example": "examples"
@@ -13,7 +29,7 @@
   "scripts": {
     "test": "node tools/validate_all.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "ajv": "^8.17.1"
   }
 }
