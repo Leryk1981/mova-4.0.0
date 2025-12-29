@@ -1,5 +1,23 @@
 # MOVA 4.1.1 — Machine-Operable Verbal Actions (Core Specification)
 
+## Статус и назначение репозитория
+- Репозиторий хранит каноническую спецификацию MOVA 4.1.1: JSON Schemas, текстовые нормы и примеры.
+- Источник истины для red-core сущностей (`ds.*`, `env.*`, `global.*`) — каталоги `schemas/` и документы из `docs/`.
+- Исполняемого кода нет: это каталог контрактов, а не платформа или агенты.
+- Текущая версия — 4.1.1; архив 4.0.0 сохранён в `docs/archive/4.0.0/` только для истории.
+- Примеры входных и выходных документов лежат в `examples/` и помогают понять форму данных.
+- Валидность схем проверяется локально через `npm test` (Ajv 2020-12); дополнительных проверок нет.
+- CI не настроен: запуск проверки лежит на авторе/контрибьюторах перед коммитами.
+- README даёт навигацию, а нормативные тексты расположены в `docs/`.
+- Обратная связь и изменения проходят через Issues/PR; ядро остаётся под контролем автора.
+
+## Быстрый вход
+1. Пролистайте этот README: цели, обзор и список артефактов.
+2. Откройте `docs/mova_4.1.1_core.md` и `docs/mova_4.1.1_global_and_verbs.md` для базовой модели и словарей.
+3. Посмотрите `schemas/` и соответствующие примеры в `examples/`, чтобы увидеть фактические JSON-формы.
+4. Запустите `npm test`, чтобы убедиться, что схемы валидны в вашей среде.
+5. Для истории сравните с архивом `docs/archive/4.0.0/` (не меняйте его содержимое).
+
 **MOVA (Machine-Operable Verbal Actions)** is a language of machine-operable agreements about data and actions.
 
 MOVA defines:
@@ -319,95 +337,83 @@ Install dependencies and generate/update the lockfile:
 
 ```bash
 npm install --package-lock-only
+```
+
 Run the validation script:
 
-bash
-Копировать код
+```bash
 npm test
 # or
 npm run test
+```
+
 This will:
 
-load all JSON Schemas from schemas/,
-
-register them in Ajv (so $ref by $id works),
-
-validate each schema as a JSON Schema draft 2020-12 document.
+- load all JSON Schemas from `schemas/`,
+- register them in Ajv (so `$ref` by `$id` works),
+- validate each schema as a JSON Schema draft 2020-12 document.
 
 If needed, you can add your own scripts or CLIs on top of this.
 
-3. Authoring new schemas and envelopes
+### 3. Authoring new schemas and envelopes
 If you want to define new types in the MOVA style:
 
 Read:
 
-docs/mova_4.1.1_core.md
-
-docs/mova_4.1.1_global_and_verbs.md
-
-docs/mova_4.1.1_schema_authoring_guide.md (when added, or follow the patterns in existing schemas)
+- `docs/mova_4.1.1_core.md`
+- `docs/mova_4.1.1_global_and_verbs.md`
+- `docs/mova_4.1.1_schema_authoring_guide.md` (when added, or follow the patterns in existing schemas)
 
 Follow these rules:
 
-use ds.* for data structures and env.* for speech-acts;
-
-choose clear names with explicit version suffixes (*_v1, *_v2, …);
-
-reuse global.* vocabularies where possible;
-
-pick verbs from the shared verb catalogue, or propose new verbs with clear semantics and documentation;
-
-avoid embedding executable logic or model prompts inside schemas; keep them as neutral contracts.
+- use `ds.*` for data structures and `env.*` for speech-acts;
+- choose clear names with explicit version suffixes (`*_v1`, `*_v2`, …);
+- reuse `global.*` vocabularies where possible;
+- pick verbs from the shared verb catalogue, or propose new verbs with clear semantics and documentation;
+- avoid embedding executable logic or model prompts inside schemas; keep them as neutral contracts.
 
 Provide examples for each new schema to make validation and onboarding easier.
 
-4. Integrating with executors and skills
+### 4. Integrating with executors and skills
 This repository does not ship any executors or domain skills.
 
 To integrate MOVA into a real system, you will typically:
 
 Implement skills that:
 
-accept MOVA envelopes and data (env.*, ds.*);
-
-perform real operations (API calls, file operations, computation, routing);
-
-emit new data and episodes that conform to MOVA schemas.
+- accept MOVA envelopes and data (`env.*`, `ds.*`);
+- perform real operations (API calls, file operations, computation, routing);
+- emit new data and episodes that conform to MOVA schemas.
 
 Use MOVA schemas strictly at system boundaries:
 
-between users and services;
-
-between services and agents;
-
-when recording episodes and security events for audit and analysis.
+- between users and services;
+- between services and agents;
+- when recording episodes and security events for audit and analysis.
 
 Treat the MOVA core as read-only from the executor’s point of view:
 
-executors must adapt to MOVA, not rewrite it on the fly.
+- executors must adapt to MOVA, not rewrite it on the fly.
 
-Versioning and migration
+## Versioning and migration
 MOVA 4.1.1 is the canonical core spec in this repository.
 
-MOVA 4.0.0 documents have been moved to docs/archive/4.0.0/ and are frozen.
+MOVA 4.0.0 documents have been moved to `docs/archive/4.0.0/` and are frozen.
 
-All schemas in schemas/ use JSON Schema draft 2020-12.
+All schemas in `schemas/` use JSON Schema draft 2020-12.
 
-Future breaking changes to core schemas will use new ids (for example *_v2), not silent changes to existing ids.
+Future breaking changes to core schemas will use new ids (for example `*_v2`), not silent changes to existing ids.
 
 If you are migrating from earlier versions (including 4.0.0), use:
 
-docs/mova_4.1.1_core.md
-
-docs/mova_4.1.1_episodes_and_genetic_layer.md
-
-docs/mova_4.1.1_security_layer.md
-
-docs/mova_4.1.1_runtime_and_connectors.md
+- `docs/mova_4.1.1_core.md`
+- `docs/mova_4.1.1_episodes_and_genetic_layer.md`
+- `docs/mova_4.1.1_security_layer.md`
+- `docs/mova_4.1.1_runtime_and_connectors.md`
 
 as the normative reference points.
 
-Governance
+## Governance
 This repository is the canonical specification of MOVA 4.1.1, maintained by the original author.
 
 The core language (schemas, envelopes, global layer, verbs and normative documents in docs/) is a single-author spec.
@@ -420,7 +426,7 @@ Contributions to examples, tooling and non-normative notes are welcome.
 
 MOVA and the MOVA 4.1.1 specification were originally created and are maintained by Sergii Miasoiedov.
 
-License
+## License
 The MOVA 4.1.1 specification and JSON Schemas in this repository are licensed under the Apache License, Version 2.0.
 
 You are free to use the specification and schemas in both commercial and non-commercial projects under the terms of this license.
