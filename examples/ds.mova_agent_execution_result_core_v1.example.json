@@ -1,0 +1,24 @@
+{
+  "result_id": "result-2026-02-18-001",
+  "agent_id": "agent.math-proof.v1",
+  "task_id": "task-math-001",
+  "run_id": "run-math-001",
+  "status": "pass",
+  "summary": "Proof sketch generated and verified against success definition.",
+  "started_at": "2026-02-18T10:00:00Z",
+  "finished_at": "2026-02-18T10:01:40Z",
+  "output_refs": [
+    "file://out/answer.md",
+    "file://out/final_state.json"
+  ],
+  "observability_refs": {
+    "compact_ref": "file://out/run.compact",
+    "semantic_ref": "file://out/run.semantic.jsonl",
+    "otel_ref": "otel://trace/9a75a6c6f8d24eb6"
+  },
+  "metrics": {
+    "token_usage_total": 1850,
+    "duration_ms_total": 100000,
+    "tool_calls_total": 4
+  }
+}

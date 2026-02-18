@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova_agent_contract_core_v1.schema.json",
+  "title": "ds.mova_agent_contract_core_v1",
+  "description": "Core vendor-neutral contract describing an agent capabilities, constraints, policy and observability requirements.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical agent identifier."
+        },
+        "agent_version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Agent version string."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "deprecated",
+            "revoked"
+          ]
+        },
+        "owner": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "owner_kind": {
+              "type": "string",
+              "enum": [
+                "individual",
+                "organization",
+                "service"
+              ]
+            }
+          },
+          "required": [
+            "owner_id",
+            "owner_kind"
+          ]
+        },
+        "task_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "Declared domains where the agent is intended to operate."
+        },
+        "capability_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "input_envelope_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Allowed input envelope ids (env.*)."
+        },
+        "output_envelope_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Produced output envelope ids (env.*)."
+        },
+        "runtime_binding_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to runtime binding definition (typically ds.runtime_binding_core_v1-based record)."
+        },
+        "connector_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "References to connectors used by this agent."
+        },
+        "policy_profile_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to instruction/policy profile applicable to this agent."
+        },
+        "observability_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "compact_required": {
+              "type": "boolean"
+            },
+            "semantic_required": {
+              "type": "boolean"
+            },
+            "otel_correlation_required": {
+              "type": "boolean"
+            },
+            "required_artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "compact_required",
+            "semantic_required",
+            "otel_correlation_required",
+            "required_artifacts"
+          ]
+        },
+        "determinism_controls": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "seed_required": {
+              "type": "boolean"
+            },
+            "replay_supported": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "seed_required",
+            "replay_supported"
+          ]
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_duration_ms": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_tool_calls": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": [
+        "agent_id",
+        "agent_version",
+        "status",
+        "owner",
+        "task_domains",
+        "runtime_binding_ref",
+        "policy_profile_ref",
+        "observability_profile",
+        "determinism_controls"
+      ]
+    }
+  ]
+}

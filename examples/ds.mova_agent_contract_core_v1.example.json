@@ -1,0 +1,47 @@
+{
+  "agent_id": "agent.math-proof.v1",
+  "agent_version": "1.0.0",
+  "status": "active",
+  "owner": {
+    "owner_id": "org:mova-compact",
+    "owner_kind": "organization"
+  },
+  "task_domains": [
+    "math",
+    "proof-assistance"
+  ],
+  "capability_tags": [
+    "formal-reasoning",
+    "deterministic-run"
+  ],
+  "input_envelope_ids": [
+    "env.mova_agent_task_execute_v1"
+  ],
+  "output_envelope_ids": [
+    "env.mova_agent_result_publish_v1"
+  ],
+  "runtime_binding_ref": "runtime_core:local_process",
+  "connector_refs": [
+    "connector_core:file_system"
+  ],
+  "policy_profile_ref": "mova_security_default_v1@1.0.0",
+  "observability_profile": {
+    "compact_required": true,
+    "semantic_required": true,
+    "otel_correlation_required": true,
+    "required_artifacts": [
+      "run.compact",
+      "run.semantic.jsonl",
+      "verification_report.json"
+    ]
+  },
+  "determinism_controls": {
+    "seed_required": true,
+    "replay_supported": true
+  },
+  "limits": {
+    "max_tokens": 12000,
+    "max_duration_ms": 180000,
+    "max_tool_calls": 12
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova_agent_execution_result_core_v1.schema.json",
+  "title": "ds.mova_agent_execution_result_core_v1",
+  "description": "Core vendor-neutral execution result for an agent run. Designed for workflow exchange and certification pipelines.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "result_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "partial",
+            "blocked",
+            "cancelled"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "finished_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "output_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "observability_refs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "compact_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "semantic_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "otel_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "token_usage_total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duration_ms_total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tool_calls_total": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": [
+        "result_id",
+        "agent_id",
+        "task_id",
+        "run_id",
+        "status",
+        "started_at",
+        "finished_at"
+      ]
+    }
+  ]
+}
