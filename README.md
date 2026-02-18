@@ -17,7 +17,6 @@
 ## Quickstart
 1. Read this README for goals, an overview, and a list of artefacts.
 2. Open `docs/mova_4.1.1_core.md` and `docs/mova_4.1.1_global_and_verbs.md` for the core model and verb catalogue.
-   For observability compatibility with MOVA Compact/Contact, also read `docs/mova_4.1.1_compact_contact_alignment.md`.
 3. Review `schemas/` and matching examples in `examples/` to see actual JSON structures.
 4. Run `npm test` to confirm the schemas validate in your environment.
 5. For history, compare with the archive at `docs/archive/4.0.0/` (do not modify its contents).
@@ -228,7 +227,6 @@ MOVA 4.1.1 defines:
 The conceptual model is described in:
 
 - `docs/mova_4.1.1_episodes_and_genetic_layer.md`.
-- `docs/mova_4.1.1_compact_contact_alignment.md` (Compact/Contact/Arena observability alignment).
 
 ---
 
@@ -311,7 +309,6 @@ The intended layout of this repository is:
   - `mova_4.1.1_security_layer.md` — security layer (instruction profiles and security events);
   - `mova_4.1.1_text_and_ui_layer.md` — text channels and UI bundles;
   - `mova_4.1.1_runtime_and_connectors.md` — runtime/connector core contracts;
-  - `mova_4.1.1_compact_contact_alignment.md` — compact/contact observability mapping and reason/result code contract;
   - `archive/4.0.0/` — frozen MOVA 4.0.0 documents (non-canonical).
 
 - **`schemas/`** — machine-readable JSON Schemas (JSON Schema draft 2020-12):
@@ -323,19 +320,12 @@ The intended layout of this repository is:
   - `ds.connector_core_v1.schema.json`
   - `ds.ui_text_bundle_core_v1.schema.json`
   - `ds.mova4_core_catalog_v1.schema.json`
-  - `ds.mova_contact_step_core_v1.schema.json`
-  - `ds.mova_compact_capture_step_core_v1.schema.json`
-  - `ds.mova_observability_step_core_v1.schema.json`
   - `env.mova4_core_catalog_publish_v1.schema.json`
   - `env.instruction_profile_publish_v1.schema.json`
   - `env.security_event_store_v1.schema.json`
 
 - **`examples/`** — sample JSON documents (optional / to be extended):
   - example `ds.*` instances;
-  - compact/contact observability examples:
-    - `ds.mova_contact_step_core_v1.example.json`
-    - `ds.mova_compact_capture_step_core_v1.example.json`
-    - `ds.mova_observability_step_core_v1.example.json`
   - example `env.*` envelopes;
   - example episodes.
 
