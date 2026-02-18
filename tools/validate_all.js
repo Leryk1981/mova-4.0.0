@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// MOVA 4.1.1 core schema validator (JSON Schema draft 2020-12)
+// MOVA 5.0.0 core schema validator (JSON Schema draft 2020-12)
 
 const fs = require("fs");
 const path = require("path");

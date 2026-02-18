@@ -1,17 +1,19 @@
-# MOVA 4.1.1 — Machine-Operable Verbal Actions (Core Specification)
+# MOVA 5.0.0 — Machine-Operable Verbal Actions (Core Specification)
 
 Українська версія: [README.uk.md](README.uk.md)
 
 ## Status and repository purpose
-- This repository stores the canonical MOVA 4.1.1 specification: JSON Schemas, normative documents and examples.
+- This repository stores the canonical MOVA 5.0.0 specification: JSON Schemas, normative documents and examples.
 - The source of truth for red-core entities (`ds.*`, `env.*`, `global.*`) lives in `schemas/` and `docs/`.
 - There is no executable code: this is a contract catalog, not a platform or agents.
 - The npm package is a distribution of the schemas and examples only; it is not an SDK or runtime.
-- The current version is 4.1.1; the 4.0.0 archive is preserved in `docs/archive/4.0.0/` for historical reference.
+- The current version is 5.0.0; the 4.0.0 archive is preserved in `docs/archive/4.0.0/` for historical reference.
 - Example input and output documents are in `examples/` to illustrate data shapes.
 - Schema validity is checked locally via `npm test` (Ajv 2020-12); there are no additional automated checks.
 - CI is not configured: contributors should run validation before commits.
+- Document file names with `mova_4.1.1_*` are kept for path stability; canonical product version is now 5.0.0.
 - This README provides navigation; normative texts are located in `docs/`.
+- Release notes for this major update: `docs/MOVA_5.0.0_RELEASE_NOTES.md`.
 - Feedback and changes go through Issues/PRs; the core stays under the author's control.
 
 ## Quickstart
@@ -63,16 +65,16 @@ MOVA itself **never executes anything**. It contains no imperative code, no work
 Execution (agents, services, workers, tools, user interfaces) always lives outside.  
 Any executor that claims support for MOVA MUST treat it as a **contract**: what counts as valid input, valid output and a valid episode.
 
-This repository publishes the **MOVA 4.1.1 core specification** and the corresponding JSON Schemas.
+This repository publishes the **MOVA 5.0.0 core specification** and the corresponding JSON Schemas.
 
 > Previous textual specs for MOVA 4.0.0 are preserved in `docs/archive/4.0.0/` for historical reference.  
-> MOVA 4.1.1 is the canonical version going forward.
+> MOVA 5.0.0 is the canonical version going forward.
 
 ---
 
 ## Goals
 
-MOVA 4.1.1 is intended to be:
+MOVA 5.0.0 is intended to be:
 
 - **Language-first**  
   Everything important is structured data that can be validated.
@@ -106,7 +108,7 @@ Each `ds.*` schema is a JSON Schema (draft 2020-12) and defines:
 
 Schemas describe **what the data looks like**, not how it is processed.
 
-Among them, MOVA 4.1.1 defines several **red core** schemas:
+Among them, MOVA 5.0.0 defines several **red core** schemas:
 
 - `ds.mova_schema_core_v1` — core language for schemas themselves;
 - `ds.mova_episode_core_v1` — core episode frame;
@@ -158,7 +160,7 @@ A typical envelope ties together:
 
 Envelopes are the points where a human, a service and an AI agent can speak the same structured language.
 
-In MOVA 4.1.1, core envelopes include:
+In MOVA 5.0.0, core envelopes include:
 
 - `env.mova4_core_catalog_publish_v1` — publishing the core catalog;
 - `env.instruction_profile_publish_v1` — publishing instruction profiles;
@@ -191,7 +193,7 @@ This layer does not contain logic. It is a **semantic dictionary** used across:
 
 to keep terminology consistent.
 
-MOVA 4.1.1 introduces, among others:
+MOVA 5.0.0 introduces, among others:
 
 - `global.episode_type_catalog_v1.json`
 - `global.security_catalog_v1.json`
@@ -219,7 +221,7 @@ Episodes form the basis for:
 - analytics and optimisation;
 - a “genetic layer” (pattern memory) built from many episodes.
 
-MOVA 4.1.1 defines:
+MOVA 5.0.0 defines:
 
 - a core episode frame: `ds.mova_episode_core_v1`;
 - a core security event episode: `ds.security_event_episode_core_v1`;
@@ -303,7 +305,7 @@ The intended layout of this repository is:
 - **`README.md`**  
   This overview.
 
-- **`docs/`** — human-readable specification documents for MOVA 4.1.1:
+- **`docs/`** — human-readable specification documents for MOVA 5.0.0:
   - `mova_4.1.1_core.md` — core language specification;
   - `mova_4.1.1_global_and_verbs.md` — global layer and verb catalogue rules;
   - `mova_4.1.1_episodes_and_genetic_layer.md` — episodes and genetic layer;
@@ -352,7 +354,7 @@ The intended layout of this repository is:
 
 ### 1. Using MOVA schemas in your system
 
-If you want to validate your JSON documents against MOVA 4.1.1:
+If you want to validate your JSON documents against MOVA 5.0.0:
 
 1. Clone this repository.
 2. Point your JSON Schema validator (e.g. Ajv or any other) to the `schemas/` directory.
@@ -438,7 +440,7 @@ Treat the MOVA core as read-only from the executor’s point of view:
 - executors must adapt to MOVA, not rewrite it on the fly.
 
 ## Versioning and migration
-MOVA 4.1.1 is the canonical core spec in this repository.
+MOVA 5.0.0 is the canonical core spec in this repository.
 
 MOVA 4.0.0 documents have been moved to `docs/archive/4.0.0/` and are frozen.
 
@@ -456,7 +458,7 @@ If you are migrating from earlier versions (including 4.0.0), use:
 as the normative reference points.
 
 ## Governance
-This repository is the canonical specification of MOVA 4.1.1, maintained by the original author.
+This repository is the canonical specification of MOVA 5.0.0, maintained by the original author.
 
 The core language (schemas, envelopes, global layer, verbs and normative documents in docs/) is a single-author spec.
 
@@ -466,12 +468,13 @@ Pull Requests that change the core language (schemas, envelopes, global layer, v
 
 Contributions to examples, tooling and non-normative notes are welcome.
 
-MOVA and the MOVA 4.1.1 specification were originally created and are maintained by Sergii Miasoiedov.
+MOVA and the MOVA 5.0.0 specification were originally created and are maintained by Sergii Miasoiedov.
 
 ## License
-The MOVA 4.1.1 specification and JSON Schemas in this repository are licensed under the Apache License, Version 2.0.
+The MOVA 5.0.0 specification and JSON Schemas in this repository are licensed under the Apache License, Version 2.0.
 
 You are free to use the specification and schemas in both commercial and non-commercial projects under the terms of this license.
 
-The canonical MOVA 4.1.1 language definition is maintained in this repository by the original author.
+The canonical MOVA 5.0.0 language definition is maintained in this repository by the original author.
 Commercial offerings around MOVA (tools, services, templates, certification, etc.) are provided separately and are not covered by this license.
+
