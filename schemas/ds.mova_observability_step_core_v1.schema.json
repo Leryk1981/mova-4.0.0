@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova_observability_step_core_v1.schema.json",
+  "title": "ds.mova_observability_step_core_v1",
+  "description": "Vendor-neutral unified observability step for arena comparison. Designed for deterministic cross-stack evaluation.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "step_id",
+        "ts_ms",
+        "dur_ms",
+        "actor_id",
+        "verb_id",
+        "object_id",
+        "tool_id",
+        "result_code"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "step_id": {
+          "type": "string",
+          "pattern": "^S[0-9]{6}$"
+        },
+        "ts_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verb_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result_code": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "warn",
+            "retry",
+            "timeout",
+            "denied",
+            "fail",
+            "block"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "none",
+            "missing_input",
+            "permission",
+            "network",
+            "tool_error",
+            "format_error",
+            "no_progress",
+            "unsafe_side_effect"
+          ],
+          "default": "none"
+        },
+        "loop_signature_detected": {
+          "type": "boolean",
+          "default": false
+        },
+        "dictionary_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "ver"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "ver": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "correlation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trace_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "span_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "source_format": {
+          "type": "string",
+          "enum": [
+            "contact",
+            "dual_emit",
+            "dual_capture",
+            "legacy_compact",
+            "unknown"
+          ],
+          "default": "unknown"
+        }
+      }
+    }
+  ]
+}

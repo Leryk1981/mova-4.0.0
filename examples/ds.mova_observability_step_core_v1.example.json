@@ -1,0 +1,22 @@
+{
+  "run_id": "arena-battle-0001",
+  "step_id": "S000042",
+  "ts_ms": 1771081812345,
+  "dur_ms": 85,
+  "actor_id": "agent_a",
+  "verb_id": "execute",
+  "object_id": "url://example.com/spec",
+  "tool_id": "http.get",
+  "result_code": "retry",
+  "reason_code": "network",
+  "loop_signature_detected": false,
+  "dictionary_ref": {
+    "id": "mova.contact.dictionary",
+    "ver": "0.0.1"
+  },
+  "correlation": {
+    "trace_id": "9a75a6c6f8d24eb6",
+    "span_id": "4f3dbca2d91a7b22"
+  },
+  "source_format": "contact"
+}
